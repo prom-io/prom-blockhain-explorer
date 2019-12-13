@@ -19,7 +19,7 @@
           <tr v-for="item in transactions">
           	<td>{{ item.queueNumber }}</td>
             <td>
-            	<router-link :to="{ name: 'Transaction', params: { hash: item.hash }}">{{ item.hash | truncate(50, '...') }}</router-link>
+            	<router-link :to="{ name: 'Transaction', params: { hash: item.hash }}">{{ item.hash | truncate(10, '...') }}</router-link>
             </td>
             <td>{{ item.blockNumber }}</td>
             <td>
