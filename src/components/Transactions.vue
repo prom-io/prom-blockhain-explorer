@@ -5,8 +5,12 @@
 				<th>#</th>
 				<th>Hash</th>
 				<th>Block</th>
-				<th>From</th>
-				<th>To</th>
+				<th>Service Node</th>
+				<th>Data Validator</th>
+				<th>Data Owner</th>
+				<th>Data Mart</th>
+				<th>Tx time ago</th>
+				<th>Tx type</th>
 				<th>Value</th>
 			</tr>
         </thead>
@@ -15,12 +19,24 @@
           <tr v-for="item in transactions">
           	<td>{{ item.queueNumber }}</td>
             <td>
-            	<router-link :to="{ name: 'Transaction', params: { queueNumber: item.queueNumber }}">{{ item.hash | truncate(50, '...') }}</router-link>
+            	<router-link :to="{ name: 'Transaction', params: { hash: item.hash }}">{{ item.hash | truncate(50, '...') }}</router-link>
             </td>
             <td>{{ item.blockNumber }}</td>
-            <td>{{ item.from | truncate(10, '...') }}</td>
-            <td>{{ item.to | truncate(10, '...') }}</td>
-            <td>{{ item.value }} ETH</td>
+            <td>
+            	<router-link :to="{ name: 'AddressTransactionResult', params: { address: item.serviceNode }}">{{ item.serviceNode | truncate(10, '...') }}</router-link>
+            </td>
+            <td>
+            	<router-link :to="{ name: 'AddressTransactionResult', params: { address: item.dataValidator }}">{{ item.dataValidator | truncate(10, '...') }}</router-link>
+            </td>
+            <td>
+            	<router-link :to="{ name: 'AddressTransactionResult', params: { address: item.dataOwner }}">{{ item.dataOwner | truncate(10, '...') }}</router-link>
+            </td>
+            <td>
+            	<router-link :to="{ name: 'AddressTransactionResult', params: { address: item.dataMart }}">{{ item.dataMart | truncate(10, '...') }}</router-link>
+            </td>
+            <td>{{ item.ago }}</td>
+            <td>{{ item.txType }}</td>
+            <td>{{ item.value }} PROM</td>
           </tr>
         </tbody>
       </table>
@@ -38,16 +54,15 @@
 	        ...mapGetters('transactions', ['getTransactions'])
 	    },
 	    methods: {
-	    	async fetchAllTransactionsPaginate() {
-				let result = await this.fetchTransactionsPaginate({'pageNumber': 1, 'pageSize': 15});
+	    	async fetchAllTransactions() {
+				let result = await this.fetchAllTransaction();
 				this.transactions = result.data;
 	            console.log(this.transactions, 'Transactions');
 	    	},
-	        ...mapActions('transactions', ['fetchTransactionsPaginate'])
+	        ...mapActions('transactions', ['fetchAllTransaction'])
 	    },
 	    mounted() {
-            let result = this.fetchAllTransactionsPaginate();
-            // console.log(result);
+            this.fetchAllTransactions();
 	    }
 	};
 </script>

@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<header>
-			<sidebar/>
+			<Nav/>
 		</header>
 		<div class="container">
 			<router-view/>
@@ -10,13 +10,13 @@
 </template>
 
 <script>
-import Sidebar from '@/components/Sidebar';
+import Nav from '@/components/Nav';
 
 export default {
   name: 'App',
 
   components: {
-    Sidebar
+    Nav
   }
 };
 </script>

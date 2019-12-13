@@ -14,16 +14,24 @@
 				<td>{{ block }}</td>
 			</tr>
 			<tr>
-				<td>From:</td>
-				<td>{{ from }}</td>
+				<td>Service Node:</td>
+				<td>{{ serviceNode }}</td>
 			</tr>
 			<tr>
-				<td>To:</td>
-				<td>{{ to }}</td>
+				<td>Data Validator:</td>
+				<td>{{ dataValidator }}</td>
+			</tr>
+			<tr>
+				<td>Data Owner:</td>
+				<td>{{ dataOwner }}</td>
+			</tr>
+			<tr>
+				<td>Data Mart:</td>
+				<td>{{ dataMart }}</td>
 			</tr>
 			<tr>
 				<td>Value:</td>
-				<td>{{ value }} ETH</td>
+				<td>{{ value }} PROM</td>
 			</tr>
 			<tr>
 				<td>Gas Used:</td>
@@ -41,8 +49,10 @@
 	        	hash: '',
 	        	status: false,
 	        	block: 0,
-	        	from: '',
-	        	to: '',
+	        	serviceNode: '',
+	        	dataValidator: '',
+	        	dataOwner: '',
+	        	dataMart: '',
 	        	value: 0,
 	        	fee: 0
 	        }
@@ -51,23 +61,26 @@
 	        ...mapGetters('transactions', ['getTransactions'])
 	    },
 	    methods: {
-	    	async fetchDetailTransaction(queueNumber) {
-				let transaction = await this.fetchTransactionDetail(queueNumber);
+	    	async fetchDetailTransaction(hash) {
+	    		console.log(hash, "HASHHASHHASHAHSHSHS");
+				let transaction = await this.fetchTransactionDetailHash(hash);
 				console.log(transaction);
 				console.log(transaction, 'TRANSACTION');
 				this.hash = transaction.hash;
 				this.status = transaction.status;
 				this.block = transaction.blockNumber;
 				this.fee = transaction.gasUsed;
-				this.from = transaction.from;
-				this.to = transaction.to;
+				this.serviceNode = transaction.serviceNode;
+				this.dataValidator = transaction.dataValidator;
+				this.dataOwner = transaction.dataOwner;
+				this.dataMart = transaction.dataMart;
 				this.value = transaction.value;
 	    	},
-	        ...mapActions('transactions', ['fetchTransactionDetail'])
+	        ...mapActions('transactions', ['fetchTransactionDetailHash'])
 	    },
 	    mounted() {
-            let queueNumber = this.$route.params.queueNumber;
-			this.fetchDetailTransaction(queueNumber);
+            let hash = this.$route.params.hash;
+			this.fetchDetailTransaction(hash);
 	    }
 	};
 </script>

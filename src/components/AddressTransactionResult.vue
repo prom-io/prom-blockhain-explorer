@@ -2,25 +2,39 @@
 	<table>
         <thead>
           <tr>
-              <th>#</th>
-              <th>Hash</th>
-              <th>Block</th>
-              <th>From</th>
-              <th>To</th>
-              <th>Value</th>
-          </tr>
+			<th>#</th>
+			<th>Hash</th>
+			<th>Block</th>
+			<th>Service Node</th>
+			<th>Data Validator</th>
+			<th>Data Owner</th>
+			<th>Data Mart</th>
+			<th>Tx type</th>
+			<th>Value</th>
+		</tr>
         </thead>
 
         <tbody>
           <tr v-for="item in transactions">
           	<td>{{ item.queueNumber }}</td>
             <td>
-            	<router-link :to="{ name: 'Transaction', params: { queueNumber: item.queueNumber }}">{{ item.hash | truncate(50, '...') }}</router-link>
+            	<router-link :to="{ name: 'Transaction', params: { hash: item.hash }}">{{ item.hash | truncate(50, '...') }}</router-link>
             </td>
             <td>{{ item.blockNumber }}</td>
-            <td>{{ item.from | truncate(10, '...') }}</td>
-            <td>{{ item.to | truncate(10, '...') }}</td>
-            <td>{{ item.value }} eth</td>
+            <td>
+            	<router-link :to="{ name: 'AddressTransactionResult', params: { address: item.serviceNode }}">{{ item.serviceNode | truncate(10, '...') }}</router-link>
+            </td>
+            <td>
+            	<router-link :to="{ name: 'AddressTransactionResult', params: { address: item.dataValidator }}">{{ item.dataValidator | truncate(10, '...') }}</router-link>
+            </td>
+            <td>
+            	<router-link :to="{ name: 'AddressTransactionResult', params: { address: item.dataOwner }}">{{ item.dataOwner | truncate(10, '...') }}</router-link>
+            </td>
+            <td>
+            	<router-link :to="{ name: 'AddressTransactionResult', params: { address: item.dataMart }}">{{ item.dataMart | truncate(10, '...') }}</router-link>
+            </td>
+            <td>{{ item.txType }}</td>
+            <td>{{ item.value }} PROM</td>
           </tr>
         </tbody>
       </table>
@@ -38,20 +52,16 @@
 	        ...mapGetters('transactions', ['getTransactions'])
 	    },
 	    methods: {
-	    	async fetchAllTransactionsPaginate(address) {
+	    	async fetchAllTransactions(address) {
 
-				let result = await this.fetchAddressTransactionDetail({
-					'address': address, 
-					'pageNumber': 1, 
-					'pageSize': 15
-				});
+				let result = await this.fetchAllAddressTransaction(address);
 				this.transactions = result.data;
 	    	},
-	        ...mapActions('transactions', ['fetchAddressTransactionDetail'])
+	        ...mapActions('transactions', ['fetchAllAddressTransaction'])
 	    },
 	    mounted() {
 	    	let address = this.$route.params.address;
-            this.fetchAllTransactionsPaginate(address);
+            this.fetchAllTransactions(address);
             // console.log(result);
 	    }
 	};

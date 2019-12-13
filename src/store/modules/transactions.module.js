@@ -10,6 +10,36 @@ const getters = {
 }
 
 const actions = {
+    async fetchAllTransaction({ commit }) {
+        try {
+            const response = await api.allTransaction();
+            commit('setTransactions', response);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    async fetchAllAddressTransaction({ commit }, address) {
+        try {
+            const response = await api.allTransactionAddress(address);
+            commit('setTransactions', response);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    async fetchTransactionDetailHash({ commit }, hash) {
+        try {
+            const response = await api.detailTransactionHash(hash);
+            console.log(response, 'RESPONSE');
+            commit('setTransaction', response);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    },
 
     async fetchTransactionsPaginate({ commit }, pagination) {
         try {
