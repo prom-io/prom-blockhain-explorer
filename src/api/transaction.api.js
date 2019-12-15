@@ -39,7 +39,6 @@ export default {
 		  method: 'GET',
 		  url: `/transaction/paginate/${pageNumber}/${pageSize}`
 		})
-
 		if (request && request.data) {
 		  return request.data
 		}

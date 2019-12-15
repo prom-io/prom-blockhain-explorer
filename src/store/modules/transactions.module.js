@@ -43,7 +43,7 @@ const actions = {
 
     async fetchTransactionsPaginate({ commit }, pagination) {
         try {
-            const response = await api.allTransactionPaginate(pagination.pageNumber, pagination.pageSize);
+            const response = await api.allTransactionPaginate(pagination.page, pagination.pageSize);
             commit('setTransactions', response);
             return response;
         } catch (error) {
@@ -65,7 +65,7 @@ const actions = {
         try {
             const response = await api.detailTransactionsAddress(
                 fetchDto.address,
-                fetchDto.pageNumber, 
+                fetchDto.page, 
                 fetchDto.pageSize
             );
             commit('setTransactions', response);
