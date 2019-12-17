@@ -4,6 +4,7 @@ import Transactions from '@/components/Transactions'
 import AddressTransactions from '@/components/AddressTransactions'
 import AddressTransactionResult from '@/components/AddressTransactionResult'
 import Transaction from '@/components/Transaction'
+import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
 			path: '/transaction/address/:address',
 			name: 'AddressTransactionResult',
 			component: AddressTransactionResult
+		},
+		{
+			path: '/not/found',
+			name: 'NotFound',
+			component: NotFound
 		}
 	]
 })

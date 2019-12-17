@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<nav class="red lighten-2">
+		<nav class="nav_menu">
 		    <div class="container nav-wrapper">
 				<a href="/" class="brand-logo">Prom Blockchain Explorer</a>
 		    </div>
@@ -16,3 +16,9 @@
 		}
 	}
 </script>
+
+<style>
+	.nav_menu {
+		background: #cf6859; 
+	}
+</style>

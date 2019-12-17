@@ -1,8 +1,8 @@
 <template>
 	<div class="row">
 		<div class="input-field col s12">
-			<input placeholder="Input address" id="address" type="text" class="validate" v-model="address">
-			<router-link :to="{ name: 'AddressTransactionResult', params: { address: address }}" class="waves-effect waves-light btn">Search</router-link>
+			<input placeholder="Input address or hash" id="query" type="text" class="validate" v-model="query">
+			<button class="waves-effect waves-light btn btn_background" v-on:click="search(query)">Search</button>
 		</div>
 		<table>
 	        <thead>
@@ -67,7 +67,7 @@
 	        		pageSize: 15,
 	        		pageNumbers: 0
 	        	},
-	        	address: '',
+	        	query: '',
 	        	transactions: []
 	        }
 	    },
@@ -129,6 +129,17 @@
 	    		}
 	    		this.fetchAllTransactionPaginate();
 	    	},
+	    	search(query) {
+	    		query = query.trim();
+	    		if(query.length == 42) {
+	    			return this.$router.push({ name: 'AddressTransactionResult', params: { address: query } })
+	    		}
+
+	    		if(query.length == 66) {
+	    			return this.$router.push({ name: 'Transaction', params: { hash: query } })
+	    		}
+	    		this.$router.push({ name: 'NotFound' })
+	    	},
 	        ...mapActions('transactions', [
 	        	'fetchAllTransaction', 
 	        	'fetchAddressTransactionDetail'
@@ -141,3 +152,9 @@
 	    }
 	};
 </script>
+
+<style>
+	.btn_background {
+		background: #cf6859; 
+	}
+</style>
