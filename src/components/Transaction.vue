@@ -117,39 +117,38 @@
 	    	async fetchDetailTransaction(hash) {
 				try {
 					let transaction = await this.fetchTransactionDetailHash(hash);					
+					this.hash = transaction.hash;
+					this.status = transaction.status;
+					if(transaction.status) {
+						this.statusText = 'Success!';
+					} else {
+						this.statusText = 'Failed!';
+					}
+
+					
+					this.block = transaction.blockNumber;
+					this.fee = transaction.fee;
+					this.serviceNode = transaction.serviceNode;
+					this.dataValidator = transaction.dataValidator;
+					this.dataOwner = transaction.dataOwner;
+					this.dataMart = transaction.dataMart;
+					this.value = transaction.value;
+					this.ago = transaction.ago;
+					this.full_date = transaction.full_date;
+					this.operationType = transaction.txType;
+
+					this.payData.in.serviceNode = transaction.payData.in.serviceNode;
+					this.payData.in.dataValidator = transaction.payData.in.dataValidator;
+					this.payData.in.dataMart = transaction.payData.in.dataMart;
+					this.payData.in.dataOwner = transaction.payData.in.dataOwner;
+
+					this.payData.out.serviceNode = transaction.payData.out.serviceNode;
+					this.payData.out.dataValidator = transaction.payData.out.dataValidator;
+					this.payData.out.dataMart = transaction.payData.out.dataMart;
+					this.payData.out.dataOwner = transaction.payData.out.dataOwner;
 				} catch(e) {
 					this.$router.push({ name: 'NotFound' })
 				}
-
-				this.hash = transaction.hash;
-				this.status = transaction.status;
-				if(transaction.status) {
-					this.statusText = 'Success!';
-				} else {
-					this.statusText = 'Failed!';
-				}
-
-				
-				this.block = transaction.blockNumber;
-				this.fee = transaction.fee;
-				this.serviceNode = transaction.serviceNode;
-				this.dataValidator = transaction.dataValidator;
-				this.dataOwner = transaction.dataOwner;
-				this.dataMart = transaction.dataMart;
-				this.value = transaction.value;
-				this.ago = transaction.ago;
-				this.full_date = transaction.full_date;
-				this.operationType = transaction.txType;
-
-				this.payData.in.serviceNode = transaction.payData.in.serviceNode;
-				this.payData.in.dataValidator = transaction.payData.in.dataValidator;
-				this.payData.in.dataMart = transaction.payData.in.dataMart;
-				this.payData.in.dataOwner = transaction.payData.in.dataOwner;
-
-				this.payData.out.serviceNode = transaction.payData.out.serviceNode;
-				this.payData.out.dataValidator = transaction.payData.out.dataValidator;
-				this.payData.out.dataMart = transaction.payData.out.dataMart;
-				this.payData.out.dataOwner = transaction.payData.out.dataOwner;
 	    	},
 	        ...mapActions('transactions', ['fetchTransactionDetailHash'])
 	    },

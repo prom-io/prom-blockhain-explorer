@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="input-field col s12">
 			<input placeholder="Input address or hash" id="query" type="text" class="validate" v-model="query">
-			<button class="waves-effect waves-light btn btn_background" v-on:click="search(query)">Search</button>
+			<button class="waves-effect waves-light btn btn_background" style="background: #cf6859" v-on:click="search(query)">Search</button>
 			<!-- <router-link :to="{ name: 'AddressTransactionResult', params: { query: query }}" class="waves-effect waves-light btn btn_background">Search</router-link> -->
 		</div>
 		<table>
