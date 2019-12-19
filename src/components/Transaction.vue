@@ -25,18 +25,38 @@
 				<td>Service Node:</td>
 				<td>
 					<router-link :to="{ name: 'AddressTransactionResult', params: { address: serviceNode }}">{{ serviceNode }}</router-link>
+
+					<template v-if="operationType == 'dataUpload'">
+						<p>+ {{ payData.in.serviceNode }}</p>
+					</template>
+					<template v-if="operationType == 'dataPurchase'">
+						<p>{{ payData.out.serviceNode }}</p>
+					</template>
 				</td>
 			</tr>
 			<tr>
 				<td>Data Validator:</td>
 				<td>
 					<router-link :to="{ name: 'AddressTransactionResult', params: { address: dataValidator }}">{{ dataValidator }}</router-link>
+
+					<template v-if="operationType == 'dataUpload'">
+						<p>- {{ payData.out.dataValidator }}</p>
+					</template>
+					<template v-if="operationType == 'dataPurchase'">
+						<p>+ {{ payData.in.dataValidator }}</p>
+					</template>
 				</td>
 			</tr>
 			<tr>
 				<td>Data Owner:</td>
 				<td>
 					<router-link :to="{ name: 'AddressTransactionResult', params: { address: dataOwner }}">{{ dataOwner }}</router-link>
+					<template v-if="operationType == 'dataPurchase'">
+						<p>+ {{ payData.in.dataOwner }}</p>
+					</template>
+					<template v-if="operationType == 'dataUpload'">
+						<p>{{ payData.out.dataOwner }}</p>
+					</template>
 				</td>
 			</tr>
 			<tr>
@@ -46,9 +66,15 @@
 				</td>
 				<td v-else>
 					<router-link :to="{ name: 'AddressTransactionResult', params: { address: dataMart }}">{{ dataMart }}</router-link>
+					<template v-if="operationType == 'dataPurchase'">
+						<p>- {{ payData.out.dataMart }}</p>
+					</template>
+					<template v-if="operationType == 'dataUpload'">
+						<p>{{ payData.out.dataMart }}</p>
+					</template>
 				</td>
 			</tr>
-			<template v-if="operationType == 'dataUpload'">
+			<!-- <template v-if="operationType == 'dataUpload'">
 				<tr>
 					<td>Data Validator: {{ dataValidator }}</td>
 					<td>- {{ payData.out.dataValidator }}</td>
@@ -71,7 +97,7 @@
 					<td>Data Owner {{ dataOwner }}</td>
 					<td>+ {{ payData.in.dataOwner }}</td>
 				</tr>
-			</template>
+			</template> -->
 			<tr>
 				<td>Value:</td>
 				<td>{{ value }} PROM</td>
