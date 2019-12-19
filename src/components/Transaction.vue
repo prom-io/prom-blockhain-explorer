@@ -41,20 +41,35 @@
 			</tr>
 			<tr>
 				<td>Data Mart:</td>
-				<td>
+				<td v-if="dataMart == '0x0000000000000000000000000000000000000000'">
+					N/A
+				</td>
+				<td v-else>
 					<router-link :to="{ name: 'AddressTransactionResult', params: { address: dataMart }}">{{ dataMart }}</router-link>
 				</td>
 			</tr>
 			<template v-if="operationType == 'dataUpload'">
 				<tr>
-					<td>Out of Data Validator {{ payData.out.dataValidator }}</td>
-					<td>In to Service Node {{ payData.in.serviceNode }}</td>
+					<td>Data Validator: {{ dataValidator }}</td>
+					<td>- {{ payData.out.dataValidator }}</td>
+				</tr>
+				<tr>
+					<td>Service Node: {{ serviceNode }}</td>
+					<td>+ {{ payData.in.serviceNode }}</td>
 				</tr>
 			</template>
 			<template v-if="operationType == 'dataPurchase'">
 				<tr>
-					<td>Out of Data Mart {{ payData.out.dataMart }}</td>
-					<td>In to Data Validator {{ payData.in.dataValidator }} and in to Data Owner {{ payData.in.dataOwner }}</td>
+					<td>Data Mart: {{ dataMart }}</td>
+					<td>-{{ payData.out.dataMart }}</td>
+				</tr>
+				<tr>
+					<td>Data Validator: {{ dataValidator }}</td>
+					<td>+ {{ payData.in.dataValidator }}</td>
+				</tr>
+				<tr>
+					<td>Data Owner {{ dataOwner }}</td>
+					<td>+ {{ payData.in.dataOwner }}</td>
 				</tr>
 			</template>
 			<tr>
