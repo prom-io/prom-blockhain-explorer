@@ -159,6 +159,7 @@
 	    mounted() {
 	    	let address = this.$route.params.address;
 	    	this.pagination.address = address;
+	    	this.query = address;
             this.fetchAllTransactionPaginate();
 	    }
 	};

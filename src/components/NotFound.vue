@@ -36,6 +36,10 @@
 	    			this.search(query)
 	    		}
 	    	},
-		}
+		},
+		mounted() {
+	    	let query = this.$route.params.query;
+	    	this.query = query;
+	    }
 	};
 </script>

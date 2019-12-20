@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const httpClient = axios.create({
     baseURL: process.env.api,
-    timeout: 1000,
+    timeout: 20000,
     headers: {
         "Content-Type": "application/json",
     }
