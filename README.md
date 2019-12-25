@@ -7,7 +7,9 @@
 
 ## Description
 
-Prometeus Blockchain Explorer is designed to display all the business transactions, which are performed within the System. To look up a PROM transaction, users can use the search bar on the top to learn more about a particular PROM address or transaction hash by entering it in the search field. Once you click enter, information about your search query will display.
+Prometeus Blockchain Explorer is designed to display all the PROM transactions. 
+
+To look up a PROM transaction, users can use the search bar on the top to learn more about a particular PROM address or transaction hash by entering it in the search field. Once you click enter, information about your search query will display.
 
 [Here](http://178.62.211.224/) is an instance, which is alreay deployed at the stage environent for the demo purposes. 
 
