@@ -13,7 +13,7 @@ To look up a PROM transaction, users can use the search bar on the top to learn 
 
 [Here](http://178.62.211.224/) is an instance, which is alreay deployed at the stage environent for the demo purposes. 
 
-NOTE: Current version Prometeus Blockchain Explorer displays the transaction of private PROM testnet. Peer to peer PROM transactions  will be added in the further versions.
+NOTE: Current version Prometeus Blockchain Explorer displays only the business transaction (via smart contracts) of private PROM testnet. Peer to peer PROM transactions  will be added in the further versions.
 
 ## License
 
