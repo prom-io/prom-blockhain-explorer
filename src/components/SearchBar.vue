@@ -111,6 +111,7 @@ export default {
     },
     resetSearch() {
       this.query = "";
+      this.isActive = false;
     }
   }
 };
