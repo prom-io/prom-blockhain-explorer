@@ -5,9 +5,13 @@ html {
 }
 body {
   font-family: "SuisseRegular", sans-serif !important;
+  min-height: 100vh;
 }
-#root {
+#app {
+  min-height: 100vh;
   font-family: "SuisseRegular", sans-serif !important;
+  display: flex;
+  flex-direction: column;
 }
 
 @font-face {
@@ -43,18 +47,116 @@ th {
   font-size: 18px !important;
   font-weight: 400 !important;
 }
+
+@media screen and (max-width: 1000px) {
+  thead th {
+    font-size: 16px !important;
+  }
+  tbody th {
+    font-size: 12px !important;
+  }
+}
 .container {
   margin: 0 auto;
   max-width: 1600px;
   width: 90%;
 }
 .table-wrapper {
-  padding: 60px 0 30px 0;
-  overflow-x: auto;
+  padding: 60px 0 30px 0 !important;
+  overflow-x: auto !important;
 }
 a.text_secondary {
   color: #7a7a81 !important;
 }
 .text_secondary {
   color: #7a7a81 !important;
+}
+.text_secondary__lighten {
+  color: #b7b7b7 !important;
+}
+.text_accent {
+  color: #cf6859 !important;
+}
+a {
+  display: block;
+}
+header {
+  max-height: 100px;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 0 1 auto !important;
+}
+.container {
+  flex: 1 0 auto !important;
+  padding: 0 30px !important;
+}
+
+.pagination {
+  margin: 0 !important;
+  padding-bottom: 30px !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  color: #7a7a81;
+  font-size: 14px;
+}
+.pagination li,
+.pagination li a {
+  display: flex !important;
+  align-items: center !important;
+}
+.pagination li span {
+  margin: 0 2px !important;
+}
+.pagination i {
+  color: #7a7a81 !important;
+}
+.pagination a:hover .pagination i {
+  color: #cf6859 !important;
+}
+.wide_screen_table {
+  /* display: block; */
+  /* width: 100%;
+  min-width: 100%; */
+}
+.mobile_screen_table {
+  display: none;
+  /* width: 100%; */
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    padding: 0 15px !important;
+  }
+
+  .mobile_screen_table td span {
+    display: block;
+    width: max-content;
+  }
+  .mobile_screen_table th span {
+    display: block;
+    width: max-content;
+  }
+  .wide_screen_table {
+    display: none;
+  }
+  .mobile_screen_table {
+    display: table;
+    margin: 0 auto;
+  }
+  thead th {
+    vertical-align: top;
+  }
+}
+@media screen and (max-width: 560px) {
+  .mobile_screen_table th {
+    text-align: center;
+  }
+  .mobile_screen_table th:nth-child(2) {
+    width: 30px;
+  }
+
+  .mobile_screen_table td {
+    text-align: center;
+  }
 }

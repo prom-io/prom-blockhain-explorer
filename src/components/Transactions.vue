@@ -268,75 +268,8 @@ export default {
 .btn_background {
   background-color: #cf6859;
 }
-.pagination {
-  margin: 0;
-  padding-bottom: 30px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  color: #7a7a81;
-  font-size: 14px;
-}
-.pagination li,
-.pagination li a {
-  display: flex;
-  align-items: center;
-}
-.pagination li span {
-  margin: 0 2px;
-}
-.pagination i {
-  color: #7a7a81 !important;
-}
-.pagination a:hover .pagination i {
-  color: #cf6859 !important;
-}
+
 .active_page {
   color: #cf6859;
-}
-
-/* th:not(:nth-child(5)):not(:nth-child(1)) {
-  min-width: 120px;
-}
-th:nth-child(5) {
-  min-width: 90px;
-} */
-.wide_screen_table {
-  /* display: block; */
-  /* width: 100%;
-  min-width: 100%; */
-}
-.mobile_screen_table {
-  display: none;
-  /* width: 100%; */
-}
-
-@media screen and (max-width: 1000px) {
-  .mobile_screen_table td span {
-    display: block;
-    width: max-content;
-  }
-  .mobile_screen_table th span {
-    display: block;
-    width: max-content;
-  }
-  .wide_screen_table {
-    display: none;
-  }
-  .mobile_screen_table {
-    display: block;
-  }
-}
-@media screen and (max-width: 560px) {
-  .mobile_screen_table th {
-    text-align: center;
-  }
-  .mobile_screen_table th:nth-child(2) {
-    width: 30px;
-  }
-
-  .mobile_screen_table td {
-    text-align: center;
-  }
 }
 </style>

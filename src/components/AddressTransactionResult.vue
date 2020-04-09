@@ -8,7 +8,7 @@
 	        </div> -->
     </div>
     <div class="table-wrapper">
-      <table>
+      <table class="wide_screen_table">
         <thead>
           <tr>
             <th>#</th>
@@ -80,6 +80,78 @@
               >
             </td>
             <td>{{ item.fee }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="mobile_screen_table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th><span>Txn</span> <span>Hash</span></th>
+            <th>Time</th>
+            <th><span>Txn</span> <span>Type</span></th>
+            <th>Value</th>
+            <th><span>Data Owner</span><span>Data Validator</span></th>
+            <th><span>Data Mart</span> <span>Service Node </span></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr v-for="item in transactions" :key="item.queueNumber">
+            <td>{{ item.queueNumber }}</td>
+            <td>
+              <router-link
+                :to="{ name: 'Transaction', params: { hash: item.hash } }"
+                >{{ item.hash | truncate(10, "...") }}</router-link
+              >
+            </td>
+            <td>{{ item.ago }}</td>
+            <td>{{ typeFormat(item.txType) }}</td>
+            <td>{{ item.value }}</td>
+            <td>
+              <a
+                v-on:click="fetchAllAddressTransactionPaginate(item.dataOwner)"
+                href="#"
+                >{{ addressFormat(item.dataOwner) | truncate(10, "...") }}</a
+              >
+              <a
+                v-on:click="
+                  fetchAllAddressTransactionPaginate(item.dataValidator)
+                "
+                href="#"
+                >{{
+                  addressFormat(item.dataValidator) | truncate(10, "...")
+                }}</a
+              >
+            </td>
+            <td
+              v-if="
+                item.dataMart == '0x0000000000000000000000000000000000000000'
+              "
+            >
+              <span> N/A</span>
+              <a
+                v-on:click="
+                  fetchAllAddressTransactionPaginate(item.serviceNode)
+                "
+                href="#"
+                >{{ addressFormat(item.serviceNode) | truncate(10, "...") }}</a
+              >
+            </td>
+            <td v-else>
+              <a
+                v-on:click="fetchAllAddressTransactionPaginate(item.dataMart)"
+                href="#"
+                >{{ addressFormat(item.dataMart) | truncate(10, "...") }}</a
+              >
+              <a
+                v-on:click="
+                  fetchAllAddressTransactionPaginate(item.serviceNode)
+                "
+                href="#"
+                >{{ addressFormat(item.serviceNode) | truncate(10, "...") }}</a
+              >
+            </td>
           </tr>
         </tbody>
       </table>
