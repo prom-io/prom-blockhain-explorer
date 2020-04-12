@@ -129,13 +129,12 @@
                 item.dataMart == '0x0000000000000000000000000000000000000000'
               "
             >
-              <span> N/A</span>
+              <span class="text_secondary"> N/A</span>
               <a
                 v-on:click="
                   fetchAllAddressTransactionPaginate(item.serviceNode)
                 "
                 href="#"
-                class="text_secondary"
                 >{{ addressFormat(item.serviceNode) | truncate(10, "...") }}</a
               >
             </td>
@@ -143,6 +142,7 @@
               <a
                 v-on:click="fetchAllAddressTransactionPaginate(item.dataMart)"
                 href="#"
+                class="text_secondary"
                 >{{ addressFormat(item.dataMart) | truncate(10, "...") }}</a
               >
               <a
@@ -254,12 +254,21 @@ export default {
     },
     ...mapActions("transactions", [
       "fetchAllTransaction",
+      "setSearchQueryAC",
       "fetchTransactionsPaginate",
       "fetchAddressTransactionDetail"
     ])
   },
+  beforeUpdate() {
+    let address = this.$route.params.address;
+    console.log(address, "|||||||||||||");
+    this.setSearchQueryAC(address);
+  },
   mounted() {
+    let address = this.$route.params.address;
+
     this.fetchAllTransactionPaginate();
+    this.setSearchQueryAC(address);
   }
 };
 </script>

@@ -259,10 +259,16 @@ export default {
         this.$router.push({ name: "NotFound" });
       }
     },
-    ...mapActions("transactions", ["fetchTransactionDetailHash"])
+    ...mapActions("transactions", [
+      "fetchTransactionDetailHash",
+      "setSearchQueryAC"
+    ])
   },
   mounted() {
     let hash = this.$route.params.hash;
+    this.setSearchQueryAC(hash);
+    // let address = this.$route.params.address;
+    console.log(hash, "||||||||hash|||||");
     this.fetchDetailTransaction(hash);
   }
 };

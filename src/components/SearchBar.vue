@@ -35,7 +35,7 @@
         <g></g>
         <g></g></svg
     ></i>
-    <i v-on:click="search(query)" class="search__button"
+    <i v-on:click="search(searchQuery)" class="search__button"
       ><svg
         width="20"
         height="20"
@@ -55,35 +55,52 @@
     <input
       id="search"
       type="search"
-      @keydown="searchEnter(query, $event)"
-      @input="searchEnter(query, $event)"
-      v-model="query"
+      @keydown="searchEnter($event)"
+      @input="searchEnter($event)"
+      v-model="searchQuery"
       class="search_filter"
       required
       placeholder="Search by Address / Txn Hash"
     />
+    <!-- @input="searchEnter(query, $event)" -->
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "SearchBar",
-  computed: {},
+  computed: {
+    searchQuery: {
+      get() {
+        return this.getSearchQuery;
+      },
+      set(value) {
+        this.setSearchQueryAC(value);
+      }
+    },
+    ...mapGetters("transactions", ["getSearchQuery"])
+  },
   data() {
     return {
-      isActive: false,
-      query: ""
+      isActive: false
     };
+  },
+  beforeUpdate() {
+    this.searchQuery.length > 0
+      ? (this.isActive = true)
+      : (this.isActive = false);
+  },
+  mounted() {
+    let address = this.$route.params.address;
+    if (address) {
+      this.setSearchQueryAC(address);
+      this.isActive = true;
+    }
   },
   methods: {
     search(query) {
       query = query.trim();
-      if (query.length > 0) {
-        this.isActive = true;
-      }
-      if (query.length <= 0) {
-        this.isActive = false;
-      }
+
       if (query.length == 42) {
         return this.$router.push({
           name: "AddressTransactionResult",
@@ -101,18 +118,29 @@ export default {
         this.$router.push({ name: "NotFound" });
       }
     },
-    searchEnter(query, event) {
-      if (event.key == "Enter") {
-        this.search(query);
+    searchEnter(e) {
+      let query = e.target.value;
+      if (query) {
+        console.log(e);
+        console.log(query);
+        if (e.key == "Enter") {
+          this.search(query);
+        }
+        if (query.length > 0) {
+          this.isActive = true;
+          this.search(query);
+        }
+        if (query.length <= 0) {
+          this.isActive = false;
+        }
+        this.setSearchQueryAC(query);
       }
     },
-    searchEnter(query, event) {
-      this.search(query);
-    },
     resetSearch() {
-      this.query = "";
+      this.setSearchQueryAC("");
       this.isActive = false;
-    }
+    },
+    ...mapActions("transactions", ["setSearchQueryAC"])
   }
 };
 </script>

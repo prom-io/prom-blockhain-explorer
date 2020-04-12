@@ -112,6 +112,7 @@
               <a
                 v-on:click="fetchAllAddressTransactionPaginate(item.dataOwner)"
                 href="#"
+                class="text_secondary"
                 >{{ addressFormat(item.dataOwner) | truncate(10, "...") }}</a
               >
               <a
@@ -129,7 +130,7 @@
                 item.dataMart == '0x0000000000000000000000000000000000000000'
               "
             >
-              <span> N/A</span>
+              <span class="text_secondary"> N/A</span>
               <a
                 v-on:click="
                   fetchAllAddressTransactionPaginate(item.serviceNode)
@@ -142,6 +143,7 @@
               <a
                 v-on:click="fetchAllAddressTransactionPaginate(item.dataMart)"
                 href="#"
+                class="text_secondary"
                 >{{ addressFormat(item.dataMart) | truncate(10, "...") }}</a
               >
               <a
@@ -245,37 +247,22 @@ export default {
       }
       this.fetchAllTransactionPaginate();
     },
-    // search(query) {
-    //   query = query.trim();
-    //   if (query.length == 42) {
-    //     return this.$router.push({
-    //       name: "AddressTransactionResult",
-    //       params: { address: query }
-    //     });
-    //   }
-
-    //   if (query.length == 66) {
-    //     return this.$router.push({
-    //       name: "Transaction",
-    //       params: { hash: query }
-    //     });
-    //   }
-    //   this.$router.push({ name: "NotFound" });
-    // },
-    // searchEnter(query, event) {
-    //   if (event.key == "Enter") {
-    //     this.search(query);
-    //   }
-    // },
     ...mapActions("transactions", [
       "fetchAllTransaction",
+      "setSearchQueryAC",
       "fetchAddressTransactionDetail"
     ])
   },
+  beforeUpdate() {
+    let address = this.$route.params.address;
+    console.log(address, "|||||||||||||");
+    this.setSearchQueryAC(address);
+  },
   mounted() {
     let address = this.$route.params.address;
+    console.log(address, "|||||||||||||");
+    this.setSearchQueryAC(address);
     this.pagination.address = address;
-    // this.query = address;
     this.fetchAllTransactionPaginate();
   }
 };
