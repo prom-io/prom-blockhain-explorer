@@ -1,5 +1,25 @@
 <template>
   <div class="table-wrapper">
+    <a
+      href="/"
+      style="margin-bottom: 20px; display: flex; align-items: center; font-size: 20px"
+      ><svg
+        style="margin-right: 10px"
+        width="26"
+        height="16"
+        viewBox="0 0 26 16"
+        stroke="#FB6C1C"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M7.75 14.75L1 8M1 8L7.75 1.25M1 8L25 8"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <span>Go back</span></a
+    >
     <table>
       <tbody>
         <tr>
@@ -239,10 +259,16 @@ export default {
         this.$router.push({ name: "NotFound" });
       }
     },
-    ...mapActions("transactions", ["fetchTransactionDetailHash"])
+    ...mapActions("transactions", [
+      "fetchTransactionDetailHash",
+      "setSearchQueryAC"
+    ])
   },
   mounted() {
     let hash = this.$route.params.hash;
+    this.setSearchQueryAC(hash);
+    // let address = this.$route.params.address;
+    console.log(hash, "||||||||hash|||||");
     this.fetchDetailTransaction(hash);
   }
 };
