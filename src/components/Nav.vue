@@ -87,6 +87,10 @@ export default {
     height: auto !important;
   }
 }
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 768px) {
+  .nav_menu {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 </style>

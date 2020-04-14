@@ -30,6 +30,7 @@
             <td>{{ item.queueNumber }}</td>
             <td>
               <router-link
+                class="link_underline text_accent"
                 :to="{ name: 'Transaction', params: { hash: item.hash } }"
                 >{{ item.hash | truncate(10, "...") }}</router-link
               >
@@ -39,33 +40,32 @@
             <td class="text_secondary">{{ typeFormat(item.txType) }}</td>
             <td class="text_secondary">{{ item.value }}</td>
             <td>
-              <a
-                class="text_secondary"
+              <div
+                class="text_secondary cursor-pointer link_underline"
                 v-on:click="fetchAllAddressTransactionPaginate(item.dataOwner)"
-                href="#"
-                >{{ addressFormat(item.dataOwner) | truncate(10, "...") }}</a
               >
+                {{ addressFormat(item.dataOwner) | truncate(10, "...") }}
+              </div>
             </td>
             <td>
-              <a
+              <div
                 v-on:click="
                   fetchAllAddressTransactionPaginate(item.dataValidator)
                 "
-                href="#"
-                >{{
-                  addressFormat(item.dataValidator) | truncate(10, "...")
-                }}</a
+                class="cursor-pointer link_underline text_accent"
               >
+                {{ addressFormat(item.dataValidator) | truncate(10, "...") }}
+              </div>
             </td>
             <td>
-              <a
-                class="text_secondary"
+              <div
+                class="text_secondary cursor-pointer link_underline"
                 v-on:click="
                   fetchAllAddressTransactionPaginate(item.serviceNode)
                 "
-                href="#"
-                >{{ addressFormat(item.serviceNode) | truncate(10, "...") }}</a
               >
+                {{ addressFormat(item.serviceNode) | truncate(10, "...") }}
+              </div>
             </td>
             <td
               v-if="
@@ -75,13 +75,14 @@
               N/A
             </td>
             <td v-else>
-              <a
+              <div
                 v-on:click="fetchAllAddressTransactionPaginate(item.dataMart)"
-                href="#"
-                >{{ addressFormat(item.dataMart) | truncate(10, "...") }}</a
+                class="cursor-pointer link_underline text_accent"
               >
+                {{ addressFormat(item.dataMart) | truncate(10, "...") }}
+              </div>
             </td>
-            <td class="text_secondary">{{ item.fee }}</td>
+            <td class="text_secondary link_underline">{{ item.fee }}</td>
           </tr>
         </tbody>
       </table>
@@ -103,58 +104,60 @@
             <td>{{ item.queueNumber }}</td>
             <td>
               <router-link
+                class="link_underline text_accent"
                 :to="{ name: 'Transaction', params: { hash: item.hash } }"
                 >{{ item.hash | truncate(10, "...") }}</router-link
               >
             </td>
             <td>{{ item.ago }}</td>
             <td>{{ typeFormat(item.txType) }}</td>
-            <td>{{ item.value }}</td>
+            <td>{{ item.value | truncate(4, "...") }}</td>
             <td>
-              <a
+              <div
                 v-on:click="fetchAllAddressTransactionPaginate(item.dataOwner)"
-                href="#"
-                class="text_secondary"
-                >{{ addressFormat(item.dataOwner) | truncate(10, "...") }}</a
+                class="cursor-pointer text_secondary link_underline"
               >
-              <a
+                {{ addressFormat(item.dataOwner) | truncate(7, "...") }}
+              </div>
+              <div
                 v-on:click="
                   fetchAllAddressTransactionPaginate(item.dataValidator)
                 "
-                href="#"
-                >{{
-                  addressFormat(item.dataValidator) | truncate(10, "...")
-                }}</a
+                class="cursor-pointer link_underline text_accent"
               >
+                {{ addressFormat(item.dataValidator) | truncate(7, "...") }}
+              </div>
             </td>
             <td
               v-if="
                 item.dataMart == '0x0000000000000000000000000000000000000000'
               "
             >
-              <span class="text_secondary"> N/A</span>
-              <a
+              <span class="text_secondary link_underline"> N/A</span>
+              <div
                 v-on:click="
                   fetchAllAddressTransactionPaginate(item.serviceNode)
                 "
-                href="#"
-                >{{ addressFormat(item.serviceNode) | truncate(10, "...") }}</a
+                class="cursor-pointer link_underline text_accnt"
               >
+                {{ addressFormat(item.serviceNode) | truncate(7, "...") }}
+              </div>
             </td>
             <td v-else>
-              <a
+              <div
                 v-on:click="fetchAllAddressTransactionPaginate(item.dataMart)"
-                href="#"
-                class="text_secondary"
-                >{{ addressFormat(item.dataMart) | truncate(10, "...") }}</a
+                class="text_secondary cursor-pointer link_underline"
               >
-              <a
+                {{ addressFormat(item.dataMart) | truncate(7, "...") }}
+              </div>
+              <div
                 v-on:click="
                   fetchAllAddressTransactionPaginate(item.serviceNode)
                 "
-                href="#"
-                >{{ addressFormat(item.serviceNode) | truncate(10, "...") }}</a
+                class="cursor-pointer link_underline text_accent"
               >
+                {{ addressFormat(item.serviceNode) | truncate(7, "...") }}
+              </div>
             </td>
           </tr>
         </tbody>
@@ -163,11 +166,11 @@
     <ul class="pagination">
       <!-- <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li> -->
       <li v-bind:class="arrowDisabledPrevious" v-on:click="paginatePrevious">
-        <a href="#!"><i class="material-icons">chevron_left</i></a>
+        <i class="material-icons">chevron_left</i>
       </li>
-      <li>Page {{ pagination.page + 1 }} of {{ pagination.pageNumbers }}</li>
+      <li>Page {{ pageNumber + 1 }} of {{ pagination.pageNumbers }}</li>
       <li v-bind:class="arrowDisabledNext" v-on:click="paginateNext">
-        <a href="#!"><i class="material-icons">chevron_right</i></a>
+        <i class="material-icons">chevron_right</i>
       </li>
     </ul>
   </div>
@@ -180,37 +183,46 @@ export default {
     return {
       pagination: {
         address: "",
-        page: 0,
         pageSize: 15,
         pageNumbers: 0
       },
-      query: "",
       transactions: []
     };
   },
   computed: {
+    pageNumber: {
+      get() {
+        return this.getPageNumber;
+      },
+      set(value) {
+        this.setPageNumberAC(value);
+      }
+    },
     arrowDisabledPrevious: function() {
       return {
-        disabled: this.pagination.page == 0,
-        "waves-effect": this.pagination.page > 0
+        disabled: this.pageNumber == 0,
+        "waves-effect": this.pageNumber > 0
       };
     },
     arrowDisabledNext: function() {
       return {
-        disabled: this.pagination.page + 1 == this.pagination.pageNumbers,
-        "waves-effect": this.pagination.page + 1 < this.pagination.pageNumbers
+        disabled: this.pageNumber + 1 == this.pagination.pageNumbers,
+        "waves-effect": this.pageNumber + 1 < this.pagination.pageNumbers
       };
     },
-    ...mapGetters("transactions", ["getTransactions"])
+
+    ...mapGetters("transactions", ["getTransactions", "getPageNumber"])
   },
   methods: {
     async fetchAllTransactions(address) {
       let result = await this.fetchAllAddressTransaction(address);
       this.transactions = result.data;
-      console.log(this.transactions);
     },
     async fetchAllTransactionPaginate() {
-      let result = await this.fetchAddressTransactionDetail(this.pagination);
+      let result = await this.fetchAddressTransactionDetail({
+        ...this.pagination,
+        page: this.pageNumber
+      });
       this.pagination.pageNumbers = result.pageNumbers;
       this.transactions = result.data;
     },
@@ -228,36 +240,41 @@ export default {
       return address;
     },
     async paginateNext() {
-      if (this.pagination.page < this.pagination.pageNumbers) {
-        this.pagination.page += 1;
+      if (this.pageNumber + 1 < this.pagination.pageNumbers) {
+        // this.pageNumber += 1;
+        this.setPageNumberAC(this.pageNumber + 1);
+        this.fetchAllTransactionPaginate();
       }
-
-      this.fetchAllTransactionPaginate();
+    },
+    async paginatePrevious() {
+      if (this.pageNumber > 0) {
+        // this.pageNumber -= 1;
+        this.setPageNumberAC(this.pageNumber - 1);
+        this.fetchAllTransactionPaginate();
+      }
     },
     async fetchAllAddressTransactionPaginate(address) {
       this.$router.push({
         name: "AddressTransactionResult",
         params: { address: address }
       });
-      console.log("FETCH");
       this.pagination.address = address;
-      this.fetchAllTransactionPaginate();
-    },
-    async paginatePrevious() {
-      if (this.pagination.page > 0) {
-        this.pagination.page -= 1;
-      }
       this.fetchAllTransactionPaginate();
     },
     ...mapActions("transactions", [
       "fetchAllTransaction",
       "setSearchQueryAC",
+      "setPageNumberAC",
       "fetchAddressTransactionDetail"
     ])
   },
   beforeUpdate() {
     let address = this.$route.params.address;
     this.setSearchQueryAC(address);
+    if (this.pageNumber + 1 > this.pagination.pageNumbers) {
+      this.setPageNumberAC(0);
+      // this.fetchAllTransactionPaginate();
+    }
   },
   mounted() {
     let address = this.$route.params.address;

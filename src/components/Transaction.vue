@@ -1,9 +1,11 @@
 <template>
   <div class="table-wrapper transaction">
-    <a
-      href="/"
+    <div
+      v-on:click="goBack"
       style="margin-bottom: 20px; display: flex; align-items: center; font-size: 20px"
-      ><svg
+      class="cursor-pointer text_accent"
+    >
+      <svg
         style="margin-right: 10px"
         width="26"
         height="16"
@@ -18,8 +20,8 @@
           stroke-linejoin="round"
         />
       </svg>
-      <span>Go back</span></a
-    >
+      <span>Go back</span>
+    </div>
     <table class="transaction_table">
       <tbody>
         <tr>
@@ -227,6 +229,9 @@ export default {
     ...mapGetters("transactions", ["getTransactions"])
   },
   methods: {
+    goBack() {
+      window.history.back();
+    },
     operationFormat(operation) {
       let types = {
         dataUpload: "Data Upload",

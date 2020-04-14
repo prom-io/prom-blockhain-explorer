@@ -62,9 +62,15 @@ a {
 
   cursor: pointer;
 }
-tr a {
+tr .text_secondary.link_underline {
+  color: #7a7a81 !important;
   text-decoration: underline;
-  text-decoration-color: #df5f18;
+  text-decoration-color: #7a7a81 !important;
+}
+tr .text_accent.link_underline {
+  color: #df5f18 !important;
+  text-decoration: underline;
+  text-decoration-color: #df5f18 !important;
 }
 tr {
   color: #7a7a81 !important;
@@ -101,7 +107,7 @@ a.text_secondary {
   color: #b7b7b7 !important;
 }
 .text_accent {
-  color: #cf6859 !important;
+  color: #df5f18 !important;
 }
 a {
   display: block;
@@ -207,4 +213,7 @@ header {
 }
 .pt-10 {
   padding-top: 10px;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
