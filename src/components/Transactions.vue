@@ -33,12 +33,13 @@
                 >{{ item.hash | truncate(10, "...") }}</router-link
               >
             </td>
-            <td>{{ item.blockNumber }}</td>
-            <td>{{ item.ago }}</td>
-            <td>{{ typeFormat(item.txType) }}</td>
-            <td>{{ item.value }}</td>
+            <td class="text_secondary">{{ item.blockNumber }}</td>
+            <td class="text_secondary">{{ item.ago }}</td>
+            <td class="text_secondary">{{ typeFormat(item.txType) }}</td>
+            <td class="text_secondary">{{ item.value }}</td>
             <td>
               <a
+                class="text_secondary"
                 v-on:click="fetchAllAddressTransactionPaginate(item.dataOwner)"
                 href="#"
                 >{{ addressFormat(item.dataOwner) | truncate(10, "...") }}</a
@@ -57,6 +58,7 @@
             </td>
             <td>
               <a
+                class="text_secondary"
                 v-on:click="
                   fetchAllAddressTransactionPaginate(item.serviceNode)
                 "
@@ -78,7 +80,7 @@
                 >{{ addressFormat(item.dataMart) | truncate(10, "...") }}</a
               >
             </td>
-            <td>{{ item.fee }}</td>
+            <td class="text_secondary">{{ item.fee }}</td>
           </tr>
         </tbody>
       </table>
@@ -106,7 +108,7 @@
             </td>
             <td>{{ item.ago }}</td>
             <td>{{ typeFormat(item.txType) }}</td>
-            <td>{{ item.value }}</td>
+            <td>{{ item.value | truncate(5, "...") }}</td>
             <td>
               <a
                 v-on:click="fetchAllAddressTransactionPaginate(item.dataOwner)"
@@ -163,7 +165,7 @@
       </li>
       <li>
         <span>Page</span>
-        <span class="active_page">{{ pagination.page + 1 }}</span>
+        <span class="active_page">{{ pageNumber + 1 }}</span>
         <span>of</span>
         <span>{{ pagination.pageNumbers }}</span>
       </li>
@@ -191,19 +193,28 @@ export default {
     };
   },
   computed: {
+    pageNumber: {
+      get() {
+        return this.getPageNumber;
+      },
+      set(value) {
+        this.setPageNumberAC(value);
+      }
+    },
     arrowDisabledPrevious: function() {
       return {
-        disabled: this.pagination.page == 0,
-        "waves-effect": this.pagination.page > 0
+        disabled: this.pageNumber == 0,
+        "waves-effect": this.pageNumber > 0
       };
     },
     arrowDisabledNext: function() {
       return {
-        disabled: this.pagination.page + 1 == this.pagination.pageNumbers,
-        "waves-effect": this.pagination.page + 1 < this.pagination.pageNumbers
+        disabled: this.pageNumber + 1 == this.pagination.pageNumbers,
+        "waves-effect": this.pageNumber + 1 < this.pagination.pageNumbers
       };
     },
-    ...mapGetters("transactions", ["getTransactions"])
+
+    ...mapGetters("transactions", ["getTransactions", "getPageNumber"])
   },
   methods: {
     async fetchAllTransactions() {
@@ -212,7 +223,10 @@ export default {
       console.log(this.transactions, "Transactions");
     },
     async fetchAllTransactionPaginate() {
-      let result = await this.fetchTransactionsPaginate(this.pagination);
+      let result = await this.fetchTransactionsPaginate({
+        ...this.pagination,
+        page: this.pageNumber
+      });
       this.pagination.pageNumbers = result.pageNumbers;
       this.transactions = result.data;
     },
@@ -240,28 +254,30 @@ export default {
       return address;
     },
     async paginateNext() {
-      if (this.pagination.page < this.pagination.pageNumbers) {
-        this.pagination.page += 1;
+      if (this.pageNumber < this.pagination.pageNumbers) {
+        // this.pagination.page += 1;
+        this.setPageNumberAC(this.pageNumber + 1);
       }
 
       this.fetchAllTransactionPaginate();
     },
     async paginatePrevious() {
-      if (this.pagination.page > 0) {
-        this.pagination.page -= 1;
+      if (this.pageNumber > 0) {
+        // this.pagination.page -= 1;
+        this.setPageNumberAC(this.pageNumber - 1);
       }
       this.fetchAllTransactionPaginate();
     },
     ...mapActions("transactions", [
       "fetchAllTransaction",
       "setSearchQueryAC",
+      "setPageNumberAC",
       "fetchTransactionsPaginate",
       "fetchAddressTransactionDetail"
     ])
   },
   beforeUpdate() {
     let address = this.$route.params.address;
-    console.log(address, "|||||||||||||");
     this.setSearchQueryAC(address);
   },
   mounted() {

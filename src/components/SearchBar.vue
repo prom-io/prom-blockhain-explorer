@@ -86,9 +86,11 @@ export default {
     };
   },
   beforeUpdate() {
-    this.searchQuery.length > 0
-      ? (this.isActive = true)
-      : (this.isActive = false);
+    if (this.searchQuery) {
+      this.searchQuery.length > 0
+        ? (this.isActive = true)
+        : (this.isActive = false);
+    }
   },
   mounted() {
     let address = this.$route.params.address;
@@ -114,15 +116,13 @@ export default {
           params: { hash: query }
         });
       }
-      if (this.$route.path !== "/not/found" && query.length >= 42) {
+      if (this.$route.path !== "/not/found") {
         this.$router.push({ name: "NotFound" });
       }
     },
     searchEnter(e) {
       let query = e.target.value;
       if (query) {
-        console.log(e);
-        console.log(query);
         if (e.key == "Enter") {
           this.search(query);
         }
@@ -139,6 +139,7 @@ export default {
     resetSearch() {
       this.setSearchQueryAC("");
       this.isActive = false;
+      this.$router.push({ name: "Transactions" });
     },
     ...mapActions("transactions", ["setSearchQueryAC"])
   }

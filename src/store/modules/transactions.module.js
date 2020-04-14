@@ -3,10 +3,12 @@ import api from "@/api/transaction.api";
 const state = {
   transaction: {},
   searchQuery: "",
-  transactions: []
+  transactions: [],
+  pageNumber: 0
 };
 
 const getters = {
+  getPageNumber: state => state.pageNumber,
   getSearchQuery: state => state.searchQuery,
   getTransaction: state => state.transaction,
   getTransactions: state => state.transactions
@@ -82,6 +84,9 @@ const actions = {
   },
   async setSearchQueryAC({ commit }, searchQuery) {
     commit("setSearchQuery", searchQuery);
+  },
+  async setPageNumberAC({ commit }, pageNumber) {
+    commit("setPageNumber", pageNumber);
   }
 };
 
@@ -91,6 +96,9 @@ const mutations = {
   },
   setSearchQuery(state, data) {
     state.searchQuery = data;
+  },
+  setPageNumber(state, data) {
+    state.pageNumber = data;
   },
   setTransaction(state, data) {
     state.transaction = data;

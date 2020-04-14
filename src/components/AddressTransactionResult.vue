@@ -34,12 +34,13 @@
                 >{{ item.hash | truncate(10, "...") }}</router-link
               >
             </td>
-            <td>{{ item.blockNumber }}</td>
-            <td>{{ item.ago }}</td>
-            <td>{{ typeFormat(item.txType) }}</td>
-            <td>{{ item.value }}</td>
+            <td class="text_secondary">{{ item.blockNumber }}</td>
+            <td class="text_secondary">{{ item.ago }}</td>
+            <td class="text_secondary">{{ typeFormat(item.txType) }}</td>
+            <td class="text_secondary">{{ item.value }}</td>
             <td>
               <a
+                class="text_secondary"
                 v-on:click="fetchAllAddressTransactionPaginate(item.dataOwner)"
                 href="#"
                 >{{ addressFormat(item.dataOwner) | truncate(10, "...") }}</a
@@ -58,6 +59,7 @@
             </td>
             <td>
               <a
+                class="text_secondary"
                 v-on:click="
                   fetchAllAddressTransactionPaginate(item.serviceNode)
                 "
@@ -79,7 +81,7 @@
                 >{{ addressFormat(item.dataMart) | truncate(10, "...") }}</a
               >
             </td>
-            <td>{{ item.fee }}</td>
+            <td class="text_secondary">{{ item.fee }}</td>
           </tr>
         </tbody>
       </table>
@@ -255,12 +257,10 @@ export default {
   },
   beforeUpdate() {
     let address = this.$route.params.address;
-    console.log(address, "|||||||||||||");
     this.setSearchQueryAC(address);
   },
   mounted() {
     let address = this.$route.params.address;
-    console.log(address, "|||||||||||||");
     this.setSearchQueryAC(address);
     this.pagination.address = address;
     this.fetchAllTransactionPaginate();

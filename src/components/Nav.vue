@@ -77,7 +77,13 @@ export default {
     padding: 15px !important;
   }
   .nav_menu {
-    min-height: auto !important;
+    min-height: initial !important;
+    /* max-height: 120px !important; */
+    height: auto !important;
+  }
+  header {
+    min-height: 120px !important;
+    max-height: 120px !important;
     height: auto !important;
   }
 }

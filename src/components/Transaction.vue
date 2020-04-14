@@ -1,5 +1,5 @@
 <template>
-  <div class="table-wrapper">
+  <div class="table-wrapper transaction">
     <a
       href="/"
       style="margin-bottom: 20px; display: flex; align-items: center; font-size: 20px"
@@ -20,7 +20,7 @@
       </svg>
       <span>Go back</span></a
     >
-    <table>
+    <table class="transaction_table">
       <tbody>
         <tr>
           <td class="table__head_item">
@@ -32,7 +32,7 @@
           <td class="table__head_item">
             Transaction Hash:
           </td>
-          <td>{{ hash }}</td>
+          <td class="break_all">{{ hash }}</td>
         </tr>
         <tr>
           <td class="table__head_item">
@@ -64,6 +64,7 @@
           </td>
           <td>
             <router-link
+              class="break_all"
               :to="{
                 name: 'AddressTransactionResult',
                 params: { address: serviceNode }
@@ -72,10 +73,12 @@
             >
 
             <template v-if="operationType == 'dataUpload'">
-              <p>+ {{ payData.in.serviceNode }}</p>
+              <span class="pt-10 break_all"
+                >+ {{ payData.in.serviceNode }}</span
+              >
             </template>
             <template v-if="operationType == 'dataPurchase'">
-              <p>{{ payData.out.serviceNode }}</p>
+              <span class="pt-10 break_all">{{ payData.out.serviceNode }}</span>
             </template>
           </td>
         </tr>
@@ -85,6 +88,7 @@
           </td>
           <td>
             <router-link
+              class="break_all"
               :to="{
                 name: 'AddressTransactionResult',
                 params: { address: dataValidator }
@@ -93,10 +97,14 @@
             >
 
             <template v-if="operationType == 'dataUpload'">
-              <p>- {{ payData.out.dataValidator }}</p>
+              <span class="pt-10 break_all"
+                >- {{ payData.out.dataValidator }}</span
+              >
             </template>
             <template v-if="operationType == 'dataPurchase'">
-              <p>+ {{ payData.in.dataValidator }}</p>
+              <span class="pt-10 break_all"
+                >+ {{ payData.in.dataValidator }}</span
+              >
             </template>
           </td>
         </tr>
@@ -106,6 +114,7 @@
           </td>
           <td>
             <router-link
+              class="break_all"
               :to="{
                 name: 'AddressTransactionResult',
                 params: { address: dataOwner }
@@ -113,10 +122,10 @@
               >{{ dataOwner }}</router-link
             >
             <template v-if="operationType == 'dataPurchase'">
-              <p>+ {{ payData.in.dataOwner }}</p>
+              <span class="pt-10 break_all">+ {{ payData.in.dataOwner }}</span>
             </template>
             <template v-if="operationType == 'dataUpload'">
-              <p>{{ payData.out.dataOwner }}</p>
+              <span class="pt-10 break_all">{{ payData.out.dataOwner }}</span>
             </template>
           </td>
         </tr>
@@ -129,6 +138,7 @@
           </td>
           <td v-else>
             <router-link
+              class="break_all"
               :to="{
                 name: 'AddressTransactionResult',
                 params: { address: dataMart }
@@ -136,10 +146,10 @@
               >{{ dataMart }}</router-link
             >
             <template v-if="operationType == 'dataPurchase'">
-              <p>- {{ payData.out.dataMart }}</p>
+              <span class="pt-10 break_all">- {{ payData.out.dataMart }}</span>
             </template>
             <template v-if="operationType == 'dataUpload'">
-              <p>{{ payData.out.dataMart }}</p>
+              <span class="pt-10 break_all">{{ payData.out.dataMart }}</span>
             </template>
           </td>
         </tr>
@@ -268,14 +278,13 @@ export default {
     let hash = this.$route.params.hash;
     this.setSearchQueryAC(hash);
     // let address = this.$route.params.address;
-    console.log(hash, "||||||||hash|||||");
     this.fetchDetailTransaction(hash);
   }
 };
 </script>
 <style scoped>
-.table-wrapper {
-  padding: 60px 0 90px 0;
+.table-wrapper.transaction {
+  padding: 60px 0 90px 0 !important;
 }
 .table__head_item {
   color: #131315;
@@ -286,5 +295,10 @@ td.accent {
   font-weight: 500;
   font-size: 18px;
   color: #df5f18 !important;
+}
+@media screen and (max-width: 768px) {
+  td.accent {
+    font-size: 14px;
+  }
 }
 </style>
