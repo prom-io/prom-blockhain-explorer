@@ -7,7 +7,7 @@
 	          <i class="material-icons icon_style search_btn" style="color: rgba(0, 0, 0, 0.54);" v-on:click="search(query)">search</i>
 	        </div> -->
       <h4>Sorry, Not Found</h4>
-      <a href="/">Go back</a>
+      <div class="cursor-pointer text_accent" v-on:click="goBack">Go back</div>
     </div>
   </div>
 </template>
@@ -20,7 +20,11 @@ export default {
       query: ""
     };
   },
-  // methods: {
+  methods: {
+    goBack() {
+      window.history.back();
+    }
+  },
   // 	search(query) {
   // 		query = query.trim();
   // 		if(query.length == 42) {

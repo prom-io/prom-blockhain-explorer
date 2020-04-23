@@ -1,8 +1,35 @@
 html {
-  min-width: 320px;
+  min-width: 600px;
   overflow-x: auto;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #df5f18 #ccc;
+
   font-family: "SuisseRegular", sans-serif !important;
 }
+html::-webkit-scrollbar {
+  width: 5px;
+}
+html::-webkit-scrollbar:horizontal {
+  height: 5px;
+}
+
+/* Track */
+html::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+/* Handle */
+html::-webkit-scrollbar-thumb {
+  background-color: #2b2b2b;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+html::-webkit-scrollbar-thumb:hover {
+  background-color: #df5f18;
+}
+
 body {
   font-family: "SuisseRegular", sans-serif !important;
   min-height: 100vh;
@@ -35,9 +62,15 @@ a {
 
   cursor: pointer;
 }
-tr a {
+tr .text_secondary.link_underline {
+  color: #7a7a81 !important;
   text-decoration: underline;
-  text-decoration-color: #df5f18;
+  text-decoration-color: #7a7a81 !important;
+}
+tr .text_accent.link_underline {
+  color: #df5f18 !important;
+  text-decoration: underline;
+  text-decoration-color: #df5f18 !important;
 }
 tr {
   color: #7a7a81 !important;
@@ -63,7 +96,6 @@ th {
 }
 .table-wrapper {
   padding: 60px 0 30px 0 !important;
-  overflow-x: auto !important;
 }
 a.text_secondary {
   color: #7a7a81 !important;
@@ -75,7 +107,7 @@ a.text_secondary {
   color: #b7b7b7 !important;
 }
 .text_accent {
-  color: #cf6859 !important;
+  color: #df5f18 !important;
 }
 a {
   display: block;
@@ -124,7 +156,7 @@ header {
   /* width: 100%; */
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
   .container {
     padding: 0 15px !important;
   }
@@ -142,14 +174,23 @@ header {
   }
   .mobile_screen_table {
     display: table;
-    margin: 0 auto;
+    margin: 0;
+    width: 100%;
+    font-size: 12px !important;
   }
   thead th {
+    font-size: 12px !important;
     vertical-align: top;
+  }
+  .transaction_table {
+    font-size: 12px !important;
+  }
+  .pagination {
+    font-size: 12px !important;
   }
 }
 @media screen and (max-width: 560px) {
-  .mobile_screen_table th {
+  /* .mobile_screen_table th {
     text-align: center;
   }
   .mobile_screen_table th:nth-child(2) {
@@ -158,5 +199,21 @@ header {
 
   .mobile_screen_table td {
     text-align: center;
+  } */
+}
+.break_all {
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+@media only screen and (min-width: 992px) {
+  html {
+    font-size: 14px !important;
   }
+}
+.pt-10 {
+  padding-top: 10px;
+}
+.cursor-pointer {
+  cursor: pointer;
 }

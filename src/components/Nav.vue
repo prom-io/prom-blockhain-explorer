@@ -77,10 +77,20 @@ export default {
     padding: 15px !important;
   }
   .nav_menu {
-    min-height: auto !important;
+    min-height: initial !important;
+    /* max-height: 120px !important; */
+    height: auto !important;
+  }
+  header {
+    min-height: 120px !important;
+    max-height: 120px !important;
     height: auto !important;
   }
 }
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 768px) {
+  .nav_menu {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 </style>

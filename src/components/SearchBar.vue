@@ -1,12 +1,13 @@
 <template>
   <div class="input-field search_bar">
     <!-- v-show="this.query" -->
-    <i
-      class="icon_style close_btn"
+    <button
+      type="button"
+      class="icon_style cursor-pointer close_btn"
       v-on:click="resetSearch()"
-      v-show="this.isActive"
+      title="Click to reset filter"
     >
-      <svg
+      <!-- <svg
         fill="#ffffff"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -33,8 +34,9 @@
         <g></g>
         <g></g>
         <g></g>
-        <g></g></svg
-    ></i>
+        <g></g></svg -->
+      reset
+    </button>
     <i v-on:click="search(searchQuery)" class="search__button"
       ><svg
         width="20"
@@ -85,16 +87,11 @@ export default {
       isActive: false
     };
   },
-  beforeUpdate() {
-    this.searchQuery.length > 0
-      ? (this.isActive = true)
-      : (this.isActive = false);
-  },
+
   mounted() {
     let address = this.$route.params.address;
     if (address) {
       this.setSearchQueryAC(address);
-      this.isActive = true;
     }
   },
   methods: {
@@ -114,31 +111,27 @@ export default {
           params: { hash: query }
         });
       }
-      if (this.$route.path !== "/not/found" && query.length >= 42) {
+      if (this.$route.path !== "/not/found") {
         this.$router.push({ name: "NotFound" });
       }
     },
     searchEnter(e) {
       let query = e.target.value;
       if (query) {
-        console.log(e);
-        console.log(query);
         if (e.key == "Enter") {
           this.search(query);
         }
         if (query.length > 0) {
-          this.isActive = true;
           this.search(query);
         }
         if (query.length <= 0) {
-          this.isActive = false;
         }
         this.setSearchQueryAC(query);
       }
     },
     resetSearch() {
       this.setSearchQueryAC("");
-      this.isActive = false;
+      this.$router.push({ name: "Transactions" });
     },
     ...mapActions("transactions", ["setSearchQueryAC"])
   }
@@ -150,18 +143,22 @@ export default {
   display: flex;
   align-items: center;
   min-width: 300px;
-  max-width: 500px;
+  max-width: 550px;
   width: 100%;
   max-height: 46px;
   position: relative;
 }
-
+@media screen and (max-width: 768px) {
+  .search_bar {
+    max-width: 100%;
+  }
+}
 .search_filter {
   border-bottom: 1px solid #e9e9e9 !important;
   margin-bottom: 0 !important;
   color: #e9e9e9 !important;
   background-color: transparent !important;
-  padding: 0 30px !important;
+  padding: 0 60px 0 30px !important;
 }
 
 .icon_style {
@@ -180,22 +177,28 @@ nav i.material-icons {
   height: 100% !important;
   z-index: 1;
   position: absolute;
-  left: 5px !important;
+  left: 0px !important;
   top: 0px !important;
   cursor: pointer;
   display: flex;
   align-items: center;
 }
-.close_btn svg {
-  width: 10px;
-  height: 10px;
+
+.close_btn:hover {
+  color: #fff;
 }
 .close_btn {
+  transaction: color 0.3s;
+  color: #df5f18;
   height: 100% !important;
-  height: 100%;
-  width: 20px;
+  width: 40px;
+  font-size: 16px;
+  font-weight: 400;
   display: flex;
   justify-content: center;
   align-items: center;
+  outline: none;
+  border: none;
+  text-transform: uppercase;
 }
 </style>
