@@ -7,7 +7,7 @@
 
 ## Description
 
-Prometeus Blockchain Explorer is designed to display all the PROM transactions. 
+Prometeus Blockchain Explorer is designed to display all the PROM transactions within Stoa: Data Exchange Platform within Prometeus ecosystem. 
 
 To look up a PROM transaction, users can use the search bar on the top to learn more about a particular PROM address or transaction hash by entering it in the search field. Once you click enter, information about your search query will display.
 
